@@ -51,11 +51,11 @@ Run `npm run migrate` in your **TERMINAL**, in the **project** folder (not your 
 ## Basic Requirements 
 
 ## Database Schema
-![Tables screeshot](image.png)
+![Tables screeshot](Images/image.png)
 
 ## API routes plan
-![Api route_1](screeshot_1.PNG)
-![Api routes_2](screenshot_2.PNG)
+![Api route_1](Images/screenshot_1.PNG)
+![Api routes_2](Images/screenshot_2.PNG)
 
 
 ### 1. Read through all the current code and explain it to your partner.
