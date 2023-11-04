@@ -8,7 +8,8 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        // every request that start with api is sending to this localhost.4000
+        // every request that start with api is sending to this
+        //http://localhost:4000/api
         target: "http://localhost:4000",
         changeOrigin: true,
         secure: false,
