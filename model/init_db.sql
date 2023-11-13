@@ -6,7 +6,7 @@
 SET foreign_key_checks = 0;
 
 -- Tabla para recetas
-CREATE TABLE recipes (
+CREATE TABLE IF NOT EXISTS recipes (
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL,
     description TEXT,
@@ -15,14 +15,14 @@ CREATE TABLE recipes (
 );
 
 -- Tabla para ingredientes
-CREATE TABLE ingredients (
+CREATE TABLE IF NOT EXISTS ingredients (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 );
 
--- Tabla para relacionar recetas e ingredientes (receta - ingrediente muchos a muchos)
-CREATE TABLE recipe_ingredients (
+-- Tabla para relacionar recetas e ingredientes (receta - ingrediente / many to many )
+CREATE TABLE IF NOT EXISTS recipe_ingredients (
     recipe_id INT NOT NULL,
     ingredient_id INT NOT NULL,
     PRIMARY KEY (recipe_id, ingredient_id),

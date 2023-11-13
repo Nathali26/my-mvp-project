@@ -15,7 +15,6 @@ const con = mysql.createConnection({
   multipleStatements: true
 });
 
-
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
@@ -23,7 +22,7 @@ con.connect(function(err) {
   let sql = fs.readFileSync(__dirname + "/init_db.sql").toString();
   con.query(sql, function(err, result) {
     if (err) throw err;
-    console.log("3 Tables creation `my_fridge` was successful!");
+    console.log("Tables creation `my_fridge` was successful!");
 
     console.log("Closing...");
   });
