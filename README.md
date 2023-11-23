@@ -71,43 +71,11 @@ Suggested Process:
 - Use that query to finish the endpoint in `routes/api.js`.
 - Test your endpoint using Postman.
 
-To Do:
-
-- [ ] Use Postman to confirm that you have completed these correctly
-- [ ] GET `/api/todos` should retrieve all resources.
-  - This route is almost complete!
-- [ ] POST `/api/todos` should create a new resource.
-  - To test that your query is correct, check to see if your new resource exists using `mysql`.
-  - To test your route, use Postman to see if GET `api/todos` returns your new resources.
-- [ ] PUT `/api/todos/:id` should replace a resource.
-  - To test that your query is correct, check to see if your updated resource exists using `mysql`.
-  - To test your route, use Postman to see if GET `api/todos` includes your updated resources.
-- [ ] DELETE `/api/todos/:id` should delete a resource.
-  - To test that your query is correct, check to see if your resource was deleted using `mysql`.
-  - To test your route, use Postman to see if GET `api/todos` does not include your new resources.
 
 ### 3. Finish the front end
 
-- [ ] Spend time reviewing the existing code in `client/src/App.jsx`.
-- [ ] Finish populating `tasks` from the API call in `useEffect`.
-  - Read about `useEffect` [in the React Docs](https://reactjs.org/docs/hooks-effect.html)
-- [ ] Then, add a list of tasks to the DOM. Each task should have the following:
-  - The text of the task.
-  - A strike through (using CSS) if the task is complete.
-  - Two buttons:
-    - One button to mark the task complete (this should call the updateTask function)
-    - One button to delete the task (this should call the deleteTask function)
-- [ ] Finish the updateTask function so it calls the server.
-- [ ] Finish the deleteTask function so it calls the server.
 - [ ] Add styling.
 
-## Resources
-
-- [MySQL Cheat Sheet](http://www.mysqltutorial.org/mysql-cheat-sheet.aspx)
-- [MySQL](https://dev.mysql.com/doc/refman/8.0/en/database-use.html)
-- [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
-- [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-- [React Documentation](https://react.dev/)
 
 ## Notes
 

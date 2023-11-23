@@ -3,61 +3,65 @@ var router = express.Router();
 const db = require('../model/database.js')
 
 // Buscar recetas por ingredientes
-
-router.post("/by-ingredients", async function (req,res) {// /api/recipes/by-ingredients
-  try{
-    // Obtén la lista de ingredientes proporcionada en el cuerpo de la solicitud
+router.post("/by-ingredients", async function (req, res) {
+  try {
     const { ingredientsList } = req.body;
-    if (!ingredientsList || !Array.isArray(ingredient_list)){
-      return res.status(400).json({error: 'Invalid ingredients list provided'});
+
+    if (!ingredientsList || !Array.isArray(ingredientsList)) {
+      return res
+        .status(400)
+        .json({ error: "Invalid ingredients list provided" });
     }
-    
-    // Realiza la consulta a la base de datos para buscar recetas que contengan los ingredientes proporcionados
-    const recipes = await db.query(
-      `SELECT * FROM recipes WHERE ingredients IN (${ingredients.join(",")})`
+
+    // Obtén los IDs de los ingredientes basado en los nombres proporcionados
+    const ingredientIds = await db.query(
+      `SELECT id FROM ingredients WHERE name IN (?)`,
+      [ingredientsList]
     );
 
-    if (recipes.data.length === 1) {
-      // recipes with ingredients exists
-      // Si se encontraron recetas, responder con la lista de recetas
-      res.status(200).json(recipes);
+    if (ingredientIds.length === 0) {
+      return res.status(404).json({ error: "Ingredients not found" });
+    }
+
+    const ingredientIdsArray = ingredientIds.map((ingredient) => ingredient.id);
+
+    // Consulta para obtener las recetas que contienen esos ingredientes
+    const recipes = await db.query(
+      `SELECT DISTINCT recipes.id, recipes.title, recipes.description, recipes.instructions 
+      FROM recipes 
+      JOIN recipe_ingredients ON recipes.id = recipe_ingredients.recipe_id 
+      WHERE recipe_ingredients.ingredient_id IN (?)`,
+      [ingredientIdsArray]
+    );
+
+    if (recipes.length > 0) {
+      res.status(200).json({ recipes });
     } else {
       res.status(404).send({ error: "Recipes not found!" });
     }
-  } catch (error){
-    res.status(500).send({error: error.message})
+  } catch (error) {
+    res.status(500).send({ error: error.message });
   }
-/* GET home page. */
-
-// // Get a list of ingredients
-
-// router.get('/', function(req, res, next) { // /api/ingredients/
-//   db("SELECT * FROM ingredients;")
-//   .then(results => {
-  //     res.send(result.data);
-  //   })
-//   .catch(err => res.status(500).send(err));
-// });
-
-// // Get one ingredient by id
-// router.get("/:id", async function (req,res,next){ // /api/ingredients/:id
-//   const ingredientId = req.params.id;
-//   try{
-//     let result = await db(`SELECT * FROM ingredients WHERE id = ${ingredientId}`);
-//     if (result.data.length === 1){
-//       // ingredient exists
-//       res.send.apply(result.data[0]);
-//     }
-//     else{
-//       res.status(404).send({error: "Ingredient not found!"});
-//     }
-//   } catch (error){
-//     res.status(500).send({error: error.message})
-//   }
-// });
-
-  
 });
+
+router.get(
+  "/recipes/{id}/analyzedInstructions",
+  async function (req, res) {
+    try {
+      const recipeId = req.params.id;
+
+      const recipeDetails = await db.getRecipeDetails(recipeId);
+
+      if (recipeDetails) {
+        res.status(200).json(recipeDetails);
+      } else {
+        res.status(404).send({ error: "Recipe details not found!" });
+      }
+    } catch (error) {
+      res.status(500).send({ error: error.message });
+    }
+  }
+);
 
 
 module.exports = router;

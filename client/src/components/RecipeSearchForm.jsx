@@ -1,48 +1,40 @@
-// Este componente manejara la logica y la presentacion de la busqueda de recetas
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import "./RecipeSearchForm.css"
 
-export default function RecipeSearchForm(props) {
-    const [ingredients, setIngredients] = useState("");
+export default function RecipeSearchForm({ onSearch }) {
+  const [ingredients, setIngredients] = useState("");
 
-    const handleChange = (event) => {
-        setIngredients(event.target.value);    
-    };
+  const handleChange = (event) => {
+    setIngredients(event.target.value);
+  };
 
-    const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    props.onSearch(ingredients);
+    onSearch(ingredients);
     setIngredients("");
   };
+
   return (
-    <div>
+    <div className="cointainer">
+      <div className="search-form">
+
       <h2>Search Recipes by Ingredients</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Ingredients :
+          Ingredients: 
           <input
             type="text"
             value={ingredients}
             name="ingredient"
             placeholder="Ingredient,ingredient"
             onChange={handleChange}
-          ></input>
+            />
         </label>
         <br />
         <br />
-        <button type="submit">Search</button>
-        {/* <button
-          onClick={() => {
-            props.onSearch(ingredients);
-          }}
-          type="submit"
-        >
-          Search
-        </button> */}
+        <button type="submit">Search </button>
       </form>
+      </div>
     </div>
   );
 }
-
-
-
